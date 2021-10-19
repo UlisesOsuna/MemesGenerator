@@ -11,11 +11,11 @@ namespace Managers {
 			iDominio = pDominio;
 		}
 
-		public async Task<tUsuarios> GetUsuario(
+		public async Task<tUsuarios> LoginUsuario(
 			string pUsuario
 			, string pContrasenia) {
 
-			return await iDominio.GetUsuario(pUsuario, pContrasenia);
+			return await iDominio.LoginUsuario(pUsuario, pContrasenia);
 		}
 	}
 }

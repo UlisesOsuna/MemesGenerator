@@ -3,6 +3,6 @@ using Repositorios.Entidades;
 
 namespace Dominios.Interfaces {
 	public interface IDominioUsuarios {
-		Task<tUsuarios> GetUsuario(string pUsuario, string pContrasenia);
+		Task<tUsuarios> LoginUsuario(string pUsuario, string pContrasenia);
 	}
 }

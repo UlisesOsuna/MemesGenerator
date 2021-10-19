@@ -21,9 +21,9 @@ namespace WebApis.Controllers {
 		}
 
 		[HttpPost]
-		public async Task<IActionResult> GetUsuario(SolicitudUsuarios pValue) {
+		public async Task<IActionResult> LoginUsuario(LoginSolicitud pValue) {
 			try {
-				return (IActionResult) await iManager.GetUsuario(
+				return (IActionResult) await iManager.LoginUsuario(
 					pValue.Usuario
 					, pValue.Contrasenia
 				);

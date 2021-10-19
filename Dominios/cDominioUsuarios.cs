@@ -12,7 +12,7 @@ namespace Dominios {
 			iRepositorio = pRepositorio;
 		}
 
-		public async Task<tUsuarios> GetUsuario(
+		public async Task<tUsuarios> LoginUsuario(
 			string pUsuario
 			, string pContrasenia) {
 

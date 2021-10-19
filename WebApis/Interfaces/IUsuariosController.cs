@@ -6,6 +6,6 @@ using WebApis.Solicitudes;
 
 namespace WebApis.Interfaces {
 	public interface IUsuariosController {
-		Task<ActionResult<tUsuarios>> GetUsuario(SolicitudUsuarios pValue);
+		Task<IActionResult> LoginUsuario(LoginSolicitud pValue);
 	}
 }
