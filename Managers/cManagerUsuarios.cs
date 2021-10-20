@@ -17,5 +17,19 @@ namespace Managers {
 
 			return await iDominio.LoginUsuario(pUsuario, pContrasenia);
 		}
+
+		public async Task<tUsuarios> GuardarUsuario(
+			int pIDUsuario
+			, string pUsuario
+			, string pContrasenia
+			, bool pEstaActivo) {
+
+			return await iDominio.GuardarUsuario(
+				pIDUsuario
+				, pUsuario
+				, pContrasenia
+				, pEstaActivo
+			);
+		}
 	}
 }

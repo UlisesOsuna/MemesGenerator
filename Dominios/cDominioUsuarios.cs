@@ -27,6 +27,46 @@ namespace Dominios {
 
 			return lUsuario;
 		}
+
+		public async Task<tUsuarios> GuardarUsuario(
+			int pIDUsuario
+			, string pUsuario
+			, string pContrasenia
+			, bool pEstaActivo) {
+
+			tUsuarios lUsuario = null;
+
+			if(!string.IsNullOrEmpty(pUsuario) && pContrasenia.Length > 0) {
+				lUsuario = new tUsuarios() {
+					Usuario = pUsuario
+					, Contrasenia = pContrasenia
+					, EstaActivo = pEstaActivo
+				};
+
+				if(pIDUsuario > 0)
+					lUsuario = await ActualizarUsuario(pIDUsuario, lUsuario);
+				else
+					lUsuario = await InsertarUsuario(pIDUsuario, lUsuario);
+			}
+
+			return lUsuario;
+		}
+
+		private async Task<tUsuarios> InsertarUsuario(
+			int pIDUsuario
+			, tUsuarios pUsuario) {
+
+			pUsuario.IDUsuario = pIDUsuario;
+			return await iRepositorio.InsertAsync(pUsuario, true);
+		}
+
+		private async Task<tUsuarios> ActualizarUsuario(
+			int pIDUsuario
+			, tUsuarios pUsuario) {
+
+			pUsuario.IDUsuario = pIDUsuario;
+			return await iRepositorio.UpdateAsync<int>(pUsuario, pIDUsuario, true);
+		}
 	}
 }
 

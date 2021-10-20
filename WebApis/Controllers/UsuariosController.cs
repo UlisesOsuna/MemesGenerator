@@ -21,11 +21,26 @@ namespace WebApis.Controllers {
 		}
 
 		[HttpPost]
-		public async Task<IActionResult> LoginUsuario(LoginSolicitud pValue) {
+		public async Task<IActionResult> LoginUsuario(UsuariosSolicitud pValue) {
 			try {
 				return (IActionResult) await iManager.LoginUsuario(
 					pValue.Usuario
 					, pValue.Contrasenia
+				);
+			}
+			catch(Exception pEx) {
+				return (IActionResult) pEx;
+			}
+		}
+
+		[HttpPost]
+		public async Task<IActionResult> GuardarUsuario(UsuariosSolicitud pValue) {
+			try {
+				return (IActionResult) await iManager.GuardarUsuario(
+					pValue.IDUsuario
+					, pValue.Usuario
+					, pValue.Contrasenia
+					, pValue.EstaActivo
 				);
 			}
 			catch(Exception pEx) {
