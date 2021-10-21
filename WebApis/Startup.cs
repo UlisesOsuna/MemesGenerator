@@ -1,10 +1,16 @@
+using DataAccessor;
+using Dominios;
+using Dominios.Interfaces;
 using Managers;
 using Managers.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Repositorios;
+using Repositorios.Interfaces;
 
 namespace WebApis {
 	public class Startup {
@@ -20,7 +26,14 @@ namespace WebApis {
 		public void ConfigureServices(IServiceCollection services) {
 
 			services.AddControllers();
-			services.AddScoped<IManagerUsuarios, cManagerUsuarios>();
+
+			services.AddScoped<IManagerUsuarios, cManagerUsuarios>(); //WebApis
+			services.AddScoped<IDominioUsuarios, cDominioUsuarios>(); //Managers
+			services.AddScoped<IRepositorioUsuarios, cRepositorioUsuarios>(); //Dominios
+			
+			services.AddDbContext<cStoreDataDbContext>(x => {
+				x.UseSqlServer(this.Configuration.GetConnectionString("DefaultConnection"));
+			});
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

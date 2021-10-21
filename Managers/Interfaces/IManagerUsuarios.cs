@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using Repositorios.Entidades;
+using Entidades;
 
 namespace Managers.Interfaces {
 	public interface IManagerUsuarios {

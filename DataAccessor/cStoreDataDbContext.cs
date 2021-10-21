@@ -1,9 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Entidades;
 using Microsoft.EntityFrameworkCore;
 
 namespace DataAccessor {
-	public class cStoreDataDbContext: DbContext {
+	public partial class cStoreDataDbContext: DbContext {
+
 		public cStoreDataDbContext(DbContextOptions pOptions)
 			: base(pOptions) { 
 		}

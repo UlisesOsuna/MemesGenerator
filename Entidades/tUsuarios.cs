@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Repositorios.Entidades {
+namespace Entidades {
 	public class tUsuarios {
 		[Key]
 		public int IDUsuario {

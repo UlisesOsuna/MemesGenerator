@@ -1,7 +1,6 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Dominios.Interfaces;
-using Repositorios.Entidades;
+using Entidades;
 using Repositorios.Interfaces;
 
 namespace Dominios {
@@ -46,17 +45,13 @@ namespace Dominios {
 				if(pIDUsuario > 0)
 					lUsuario = await ActualizarUsuario(pIDUsuario, lUsuario);
 				else
-					lUsuario = await InsertarUsuario(pIDUsuario, lUsuario);
+					lUsuario = await InsertarUsuario(lUsuario);
 			}
 
 			return lUsuario;
 		}
 
-		private async Task<tUsuarios> InsertarUsuario(
-			int pIDUsuario
-			, tUsuarios pUsuario) {
-
-			pUsuario.IDUsuario = pIDUsuario;
+		private async Task<tUsuarios> InsertarUsuario(tUsuarios pUsuario) {
 			return await iRepositorio.InsertAsync(pUsuario, true);
 		}
 

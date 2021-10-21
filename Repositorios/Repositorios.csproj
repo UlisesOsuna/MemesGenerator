@@ -5,6 +5,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Entidades\**" />
+    <EmbeddedResource Remove="Entidades\**" />
+    <None Remove="Entidades\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="cRepositorioImagenes.cs" />
+    <Compile Remove="Interfaces\IRepositorioImagenes.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="5.0.2" />
   </ItemGroup>
 

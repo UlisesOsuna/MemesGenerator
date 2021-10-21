@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Dominios.Interfaces;
 using Managers.Interfaces;
-using Repositorios.Entidades;
+using Entidades;
 
 namespace Managers {
 	public class cManagerUsuarios: IManagerUsuarios {
