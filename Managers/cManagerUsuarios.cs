@@ -31,5 +31,9 @@ namespace Managers {
 				, pEstaActivo
 			);
 		}
+
+		public async Task EliminarUsuario(int pIDUsuario) {
+			await iDominio.EliminarUsuario(pIDUsuario);
+		}
 	}
 }

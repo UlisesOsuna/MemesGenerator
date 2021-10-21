@@ -14,5 +14,7 @@ namespace Dominios.Interfaces {
 			, string pContrasenia
 			, bool pEstaActivo
 		);
+
+		Task EliminarUsuario(int pIDUsuario);
 	}
 }

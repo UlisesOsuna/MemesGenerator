@@ -51,6 +51,10 @@ namespace Dominios {
 			return lUsuario;
 		}
 
+		public async Task EliminarUsuario(int pIDUsuario){
+			await iRepositorio.DeleteAsync<int>(pIDUsuario, true);
+		}
+
 		private async Task<tUsuarios> InsertarUsuario(tUsuarios pUsuario) {
 			return await iRepositorio.InsertAsync(pUsuario, true);
 		}

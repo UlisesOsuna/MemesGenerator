@@ -60,6 +60,22 @@ namespace WebApis.Controllers {
 			}
 		}
 
-
+		[HttpPost]
+		[Route("Eliminar")]
+		public async Task<IActionResult> EliminarUsuario(UsuariosSolicitud pValue) {
+			try {
+				await iManager.EliminarUsuario(pValue.IDUsuario);
+				return Ok(true);
+			}
+			catch(Exception pEx) {
+				return Problem(
+					pEx.StackTrace
+					, pEx.InnerException.ToString()
+					, StatusCodes.Status500InternalServerError
+					, pEx.Message
+					, pEx.Source
+				);
+			}
+		}
 	}
 }
