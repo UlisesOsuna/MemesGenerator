@@ -1,5 +1,5 @@
 ﻿using DataAccessor;
-using Repositorios.Entidades;
+using Entidades;
 
 namespace Repositorios.Interfaces {
 	public interface IRepositorioImagenes: IRepositorioBase<tImagenes> {

@@ -1,5 +1,5 @@
 ﻿using DataAccessor;
-using Repositorios.Entidades;
+using Entidades;
 using Repositorios.Interfaces;
 
 namespace Repositorios {
