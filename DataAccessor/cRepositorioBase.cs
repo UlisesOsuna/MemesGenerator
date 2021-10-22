@@ -46,10 +46,9 @@ namespace DataAccessor {
                }
           }
 
-          public virtual async Task<IList<TEntity>> GetAllAsync() {
+          public virtual async Task<IEnumerable<TEntity>> GetAllAsync() {
                return await this.DbSet.ToListAsync();
           }
-
 
           public virtual async Task<TEntity> GetByIDAsync<T>(T pID) {
                return await this.DbSet.FindAsync(pID);

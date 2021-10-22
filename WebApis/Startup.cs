@@ -24,13 +24,20 @@ namespace WebApis {
 
 		// This method gets called by the runtime. Use this method to add services to the container.
 		public void ConfigureServices(IServiceCollection services) {
-
 			services.AddControllers();
 
-			services.AddScoped<IManagerUsuarios, cManagerUsuarios>(); //WebApis
-			services.AddScoped<IDominioUsuarios, cDominioUsuarios>(); //Managers
-			services.AddScoped<IRepositorioUsuarios, cRepositorioUsuarios>(); //Dominios
-			
+			//WebApis
+			services.AddScoped<IManagerUsuarios, cManagerUsuarios>(); 
+			services.AddScoped<IManagerCategorias, cManagerCategorias>();
+
+			//Managers
+			services.AddScoped<IDominioUsuarios, cDominioUsuarios>();
+			services.AddScoped<IDominioCategorias, cDominioCategorias>();
+
+			//Dominios
+			services.AddScoped<IRepositorioUsuarios, cRepositorioUsuarios>();
+			services.AddScoped<IRepositorioCategorias, cRepositorioCategorias>();
+
 			services.AddDbContext<cStoreDataDbContext>(x => {
 				x.UseSqlServer(this.Configuration.GetConnectionString("DefaultConnection"));
 			});

@@ -21,6 +21,7 @@ namespace Dominios {
 				lUsuario = await iRepositorio.FindAsync(x =>
 					x.Usuario == pUsuario
 					&& x.Contrasenia == pContrasenia
+					&& x.EstaActivo
 				);
 			}
 
