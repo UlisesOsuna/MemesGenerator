@@ -4,9 +4,9 @@ using WebApis.Solicitudes;
 
 namespace WebApis.Interfaces {
 	public interface IImagenesController {
-		Task<IActionResult> ObtenerImagenes(ImagenesSolicitud pValue);
+		IActionResult ObtenerImagenes(ImagenesSolicitud pValue);
 		Task<IActionResult> ObtenerImagenPorID(ImagenesSolicitud pValue);
-		Task<IActionResult> GuardarImagen(ImagenesSolicitud pValue);
-		Task<IActionResult> EliminarImagen(ImagenesSolicitud pValue);
+		Task<IActionResult> GuardarImagenes(ImagenesSolicitud pValue);
+		Task<IActionResult> EliminarImagenes(ImagenesSolicitud pValue);
 	}
 }

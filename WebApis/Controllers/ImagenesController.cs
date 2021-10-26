@@ -9,20 +9,20 @@ using WebApis.Solicitudes;
 namespace WebApis.Controllers {
 	[ApiController]
 	[Route("Api/[controller]")]
-	public class CategoriasController: ControllerBase
-		, ICategoriasController {
+	public class ImagenesController: ControllerBase
+		, IImagenesController {
 
-		private IManagerCategorias iManager;
+		private IManagerImagenes iManager;
 
-		public CategoriasController(IManagerCategorias pManager) {
+		public ImagenesController(IManagerImagenes pManager) {
 			iManager = pManager;
 		}
 
 		[HttpPost]
 		[Route("GetAll")]
-		public async Task<IActionResult> ObtenerCategorias(CategoriasSolicitud pValue) {
+		public IActionResult ObtenerImagenes(ImagenesSolicitud pValue) {
 			try {
-				return Ok(await iManager.ObtenerCategorias(pValue.EstaActivo));
+				return Ok(iManager.ObtenerImagenes(pValue.EstaActivo));
 			}
 			catch(Exception pEx) {
 				return Problem(
@@ -37,9 +37,9 @@ namespace WebApis.Controllers {
 
 		[HttpPost]
 		[Route("GetByID")]
-		public async Task<IActionResult> ObtenerCategoriaPorID(CategoriasSolicitud pValue) {
+		public async Task<IActionResult> ObtenerImagenPorID(ImagenesSolicitud pValue) {
 			try {
-				return Ok(await iManager.ObtenerCategoriaPorID(pValue.IDCategoria));
+				return Ok(await iManager.ObtenerImagenPorID(pValue.IDImagen));
 			}
 			catch(Exception pEx) {
 				return Problem(
@@ -54,13 +54,10 @@ namespace WebApis.Controllers {
 
 		[HttpPost]
 		[Route("Guardar")]
-		public async Task<IActionResult> GuardarCategoria(CategoriasSolicitud pValue) {
+		public async Task<IActionResult> GuardarImagenes(ImagenesSolicitud pValue) {
 			try {
-				return Ok(await iManager.GuardarCategoria(
-					pValue.IDCategoria
-					, pValue.Categoria
-					, pValue.EstaActivo
-				));
+				await iManager.GuardarImagenes(pValue.Imagenes);
+				return Ok(true);
 			}
 			catch(Exception pEx) {
 				return Problem(
@@ -75,9 +72,9 @@ namespace WebApis.Controllers {
 
 		[HttpPost]
 		[Route("Eliminar")]
-		public async Task<IActionResult> EliminarCategoria(CategoriasSolicitud pValue) {
+		public async Task<IActionResult> EliminarImagenes(ImagenesSolicitud pValue) {
 			try {
-				await iManager.EliminarCategoria(pValue.IDCategoria);
+				await iManager.EliminarImagenes(pValue.IDsImagenes);
 				return Ok(true);
 			}
 			catch(Exception pEx) {

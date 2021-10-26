@@ -29,14 +29,17 @@ namespace WebApis {
 			//WebApis
 			services.AddScoped<IManagerUsuarios, cManagerUsuarios>(); 
 			services.AddScoped<IManagerCategorias, cManagerCategorias>();
+			services.AddScoped<IManagerImagenes, cManagerImagenes>();
 
 			//Managers
 			services.AddScoped<IDominioUsuarios, cDominioUsuarios>();
 			services.AddScoped<IDominioCategorias, cDominioCategorias>();
+			services.AddScoped<IDominioImagenes, cDominioImagenes>();
 
 			//Dominios
 			services.AddScoped<IRepositorioUsuarios, cRepositorioUsuarios>();
 			services.AddScoped<IRepositorioCategorias, cRepositorioCategorias>();
+			services.AddScoped<IRepositorioImagenes, cRepositorioImagenes>();
 
 			services.AddDbContext<cStoreDataDbContext>(x => {
 				x.UseSqlServer(this.Configuration.GetConnectionString("DefaultConnection"));
@@ -44,7 +47,10 @@ namespace WebApis {
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-		public void Configure(IApplicationBuilder app, IWebHostEnvironment env) {
+		public void Configure(
+			IApplicationBuilder app
+			, IWebHostEnvironment env) {
+
 			if(env.IsDevelopment()) {
 				app.UseDeveloperExceptionPage();
 			}

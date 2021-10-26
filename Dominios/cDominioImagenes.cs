@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Dominios.Interfaces;
 using Entidades;
+using Modelos;
 using Repositorios.Interfaces;
 
 namespace Dominios {
@@ -12,51 +13,41 @@ namespace Dominios {
 			iRepositorio = pRepositorio;
 		}
 
-		public async Task<IEnumerable<tImagenes>> ObtenerImagenes() {
-			return await iRepositorio.GetAllAsync();
+		public IEnumerable<ImagenesModelo> ObtenerImagenes() {
+			return iRepositorio.ObtenerImagenes();
 		}
 
 		public async Task<tImagenes> ObtenerImagenPorID(int pIDImagen) {
 			return await iRepositorio.GetByIDAsync(pIDImagen);
 		}
 
-		public async Task<tImagenes> GuardarImagen(
-			int pIDImagen
-			, string pHash
-			, string pDescripcion
-			, string pBase64
-			, int pIDCategoria
-			, bool pEstaActivo) {
+		public async Task GuardarImagenes(IList<tImagenes> pImagenes) {
+			foreach(tImagenes lItem in pImagenes) {
+				bool lFlagHash = !string.IsNullOrEmpty(lItem.Hash);
+				bool lFlagBase64 = !string.IsNullOrEmpty(lItem.Base64);
+				bool lFlagIDCategoria = (lItem.IDCategoria > 0);
 
-			tImagenes lImagen = null;
-			bool lFlagHash = !string.IsNullOrEmpty(pHash);
-			bool lFlagBase64 = !string.IsNullOrEmpty(pBase64);
-			bool lFlagIDCategoria = (pIDCategoria > 0);
-
-			if(lFlagHash && lFlagBase64 && lFlagIDCategoria) {
-				lImagen = new tImagenes() {
-					Hash = pHash
-					, Descripcion = pDescripcion
-					, Base64 = pBase64
-					, IDCategoria = pIDCategoria
-					, EstaActivo = pEstaActivo
-				};
-
-				if(pIDImagen > 0)
-					lImagen = await ActualizarImagen(pIDImagen, lImagen);
-				else
-					lImagen = await InsertarImagen(lImagen);
+				if(lFlagHash && lFlagBase64 && lFlagIDCategoria) {
+					if(lItem.IDImagen > 0)
+						await ActualizarImagen(lItem.IDImagen, lItem);
+					else
+						await InsertarImagen(lItem);
+				}
 			}
 
-			return lImagen;
+			await iRepositorio.CommitAsync();
 		}
 
-		public async Task EliminarImagen(int pIDImagen) {
-			await iRepositorio.DeleteAsync<int>(pIDImagen, true);
+		public async Task EliminarImagenes(IList<int> pIDImagenes) {
+			for(int i = 0; i < pIDImagenes.Count; i++) {
+				await iRepositorio.DeleteAsync<int>(pIDImagenes[i]);
+			}
+
+			await iRepositorio.CommitAsync();
 		}
 
 		private async Task<tImagenes> InsertarImagen(tImagenes pImagen) {
-			return await iRepositorio.InsertAsync(pImagen, true);
+			return await iRepositorio.InsertAsync(pImagen);
 		}
 
 		private async Task<tImagenes> ActualizarImagen(
@@ -64,7 +55,7 @@ namespace Dominios {
 			, tImagenes pImagen) {
 
 			pImagen.IDImagen = pIDImagen;
-			return await iRepositorio.UpdateAsync<int>(pImagen, pIDImagen, true);
+			return await iRepositorio.UpdateAsync<int>(pImagen, pIDImagen);
 		}
 	}
 }

@@ -5,17 +5,9 @@ using Modelos;
 
 namespace Managers.Interfaces {
 	public interface IManagerImagenes {
-		IList<ImagenesModelo> ObtenerImagenesOfFolder(string pPathFolder);
-		Task<IList<tImagenes>> ObtenerImagenes(bool pEstanActivos);
+		IList<ImagenesModelo> ObtenerImagenes(bool pEstanActivos);
 		Task<tImagenes> ObtenerImagenPorID(int pIDImagen);
-		Task<tImagenes> GuardarImagen(
-			int pIDImagen
-			, string pHash
-			, string pDescripcion
-			, string pBase64
-			, int pIDCategoria
-			, bool pEstaActivo
-		);
-		Task EliminarImagen(int pIDImagen);
+		Task GuardarImagenes(IList<tImagenes> pImagenes);
+		Task EliminarImagenes(IList<int> pIDImagenes);
 	}
 }
