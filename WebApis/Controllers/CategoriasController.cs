@@ -9,23 +9,37 @@ using WebApis.Solicitudes;
 namespace WebApis.Controllers {
 	[ApiController]
 	[Route("Api/[controller]")]
-	public class UsuariosController: ControllerBase
-		, IUsuariosController {
+	public class CategoriasController: ControllerBase
+		, ICategoriasController {
 
-		private IManagerUsuarios iManager;
+		private IManagerCategorias iManager;
 
-		public UsuariosController(IManagerUsuarios pManager) {
+		public CategoriasController(IManagerCategorias pManager) {
 			iManager = pManager;
 		}
 
 		[HttpPost]
-		[Route("Login")]
-		public async Task<IActionResult> LoginUsuario(UsuariosSolicitud pValue) {
+		[Route("GetAll")]
+		public async Task<IActionResult> ObtenerCategorias(CategoriasSolicitud pValue) {
 			try {
-				return Ok(await iManager.LoginUsuario(
-					pValue.Usuario
-					, pValue.Contrasenia
-				));
+				return Ok(await iManager.ObtenerCategorias(pValue.EstaActivo));
+			}
+			catch(Exception pEx) {
+				return Problem(
+					pEx.StackTrace
+					, pEx.InnerException.ToString()
+					, StatusCodes.Status500InternalServerError
+					, pEx.Message
+					, pEx.Source
+				);
+			}
+		}
+
+		[HttpPost]
+		[Route("GetByID")]
+		public async Task<IActionResult> ObtenerCategoriaPorID(CategoriasSolicitud pValue) {
+			try {
+				return Ok(await iManager.ObtenerCategoriaPorID(pValue.IDCategoria));
 			}
 			catch(Exception pEx) {
 				return Problem(
@@ -40,12 +54,11 @@ namespace WebApis.Controllers {
 
 		[HttpPost]
 		[Route("Guardar")]
-		public async Task<IActionResult> GuardarUsuario(UsuariosSolicitud pValue) {
+		public async Task<IActionResult> GuardarCategoria(CategoriasSolicitud pValue) {
 			try {
-				return Ok(await iManager.GuardarUsuario(
-					pValue.IDUsuario
-					, pValue.Usuario
-					, pValue.Contrasenia
+				return Ok(await iManager.GuardarCategoria(
+					pValue.IDCategoria
+					, pValue.Categoria
 					, pValue.EstaActivo
 				));
 			}
@@ -62,9 +75,9 @@ namespace WebApis.Controllers {
 
 		[HttpPost]
 		[Route("Eliminar")]
-		public async Task<IActionResult> EliminarUsuario(UsuariosSolicitud pValue) {
+		public async Task<IActionResult> EliminarCategoria(CategoriasSolicitud pValue) {
 			try {
-				await iManager.EliminarUsuario(pValue.IDUsuario);
+				await iManager.EliminarCategoria(pValue.IDCategoria);
 				return Ok(true);
 			}
 			catch(Exception pEx) {

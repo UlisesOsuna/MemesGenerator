@@ -2,6 +2,6 @@
 using Entidades;
 
 namespace Repositorios.Interfaces {
-	public interface IRepositorioUsuarios: IRepositorioBase<tUsuarios> {
+	public interface IRepositorioCategorias: IRepositorioBase<tCategorias> {
 	}
 }

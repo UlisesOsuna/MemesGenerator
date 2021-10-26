@@ -3,12 +3,12 @@ using Entidades;
 using Repositorios.Interfaces;
 
 namespace Repositorios {
-	public class cRepositorioUsuarios: cRepositorioBase<tUsuarios>
-		, IRepositorioUsuarios {
+	public class cRepositorioCategorias: cRepositorioBase<tCategorias>
+		, IRepositorioCategorias {
 
 		private cStoreDataDbContext iContext;
 
-		public cRepositorioUsuarios(cStoreDataDbContext pContext)
+		public cRepositorioCategorias(cStoreDataDbContext pContext)
 			: base(pContext) {
 
 			iContext = pContext;

@@ -9,23 +9,37 @@ using WebApis.Solicitudes;
 namespace WebApis.Controllers {
 	[ApiController]
 	[Route("Api/[controller]")]
-	public class UsuariosController: ControllerBase
-		, IUsuariosController {
+	public class ImagenesController: ControllerBase
+		, IImagenesController {
 
-		private IManagerUsuarios iManager;
+		private IManagerImagenes iManager;
 
-		public UsuariosController(IManagerUsuarios pManager) {
+		public ImagenesController(IManagerImagenes pManager) {
 			iManager = pManager;
 		}
 
 		[HttpPost]
-		[Route("Login")]
-		public async Task<IActionResult> LoginUsuario(UsuariosSolicitud pValue) {
+		[Route("GetAll")]
+		public IActionResult ObtenerImagenes(ImagenesSolicitud pValue) {
 			try {
-				return Ok(await iManager.LoginUsuario(
-					pValue.Usuario
-					, pValue.Contrasenia
-				));
+				return Ok(iManager.ObtenerImagenes(pValue.EstaActivo));
+			}
+			catch(Exception pEx) {
+				return Problem(
+					pEx.StackTrace
+					, pEx.InnerException.ToString()
+					, StatusCodes.Status500InternalServerError
+					, pEx.Message
+					, pEx.Source
+				);
+			}
+		}
+
+		[HttpPost]
+		[Route("GetByID")]
+		public async Task<IActionResult> ObtenerImagenPorID(ImagenesSolicitud pValue) {
+			try {
+				return Ok(await iManager.ObtenerImagenPorID(pValue.IDImagen));
 			}
 			catch(Exception pEx) {
 				return Problem(
@@ -40,14 +54,10 @@ namespace WebApis.Controllers {
 
 		[HttpPost]
 		[Route("Guardar")]
-		public async Task<IActionResult> GuardarUsuario(UsuariosSolicitud pValue) {
+		public async Task<IActionResult> GuardarImagenes(ImagenesSolicitud pValue) {
 			try {
-				return Ok(await iManager.GuardarUsuario(
-					pValue.IDUsuario
-					, pValue.Usuario
-					, pValue.Contrasenia
-					, pValue.EstaActivo
-				));
+				await iManager.GuardarImagenes(pValue.Imagenes);
+				return Ok(true);
 			}
 			catch(Exception pEx) {
 				return Problem(
@@ -62,9 +72,9 @@ namespace WebApis.Controllers {
 
 		[HttpPost]
 		[Route("Eliminar")]
-		public async Task<IActionResult> EliminarUsuario(UsuariosSolicitud pValue) {
+		public async Task<IActionResult> EliminarImagenes(ImagenesSolicitud pValue) {
 			try {
-				await iManager.EliminarUsuario(pValue.IDUsuario);
+				await iManager.EliminarImagenes(pValue.IDsImagenes);
 				return Ok(true);
 			}
 			catch(Exception pEx) {

@@ -65,5 +65,6 @@
     <Build Include="dbo\Tables\tCategorias.sql" />
     <Build Include="dbo\Tables\tUsuarios.sql" />
     <Build Include="dbo\Tables\tUsuariosPermisos.sql" />
+    <Build Include="dbo\Tables\tImagenes.sql" />
   </ItemGroup>
 </Project>

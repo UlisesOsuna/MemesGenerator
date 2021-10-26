@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace DataAccessor {
 	public interface IRepositorioBase<TEntity> where TEntity : class {
-          Task<IList<TEntity>> GetAllAsync();
+          Task<IEnumerable<TEntity>> GetAllAsync();
           Task<TEntity> GetByIDAsync<T>(T pID);
           Task<TEntity> FindAsync(Expression<Func<TEntity, bool>> pMatch);
 

@@ -1,22 +1,16 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿namespace WebApis.Solicitudes {
+	public class UsuariosSolicitud {
 
-namespace Repositorios.Entidades {
-	public class tUsuarios {
-		[Key]
 		public int IDUsuario {
 			get;
 			set;
 		}
 
-		[Required]
-		[StringLength(100)]
 		public string Usuario {
 			get;
 			set;
 		}
 
-		[Required]
-		[StringLength(100)]
 		public string Contrasenia {
 			get;
 			set;

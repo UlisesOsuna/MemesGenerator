@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Dominios.Interfaces;
 using Managers.Interfaces;
-using Repositorios.Entidades;
+using Entidades;
 
 namespace Managers {
 	public class cManagerUsuarios: IManagerUsuarios {
@@ -16,6 +16,24 @@ namespace Managers {
 			, string pContrasenia) {
 
 			return await iDominio.LoginUsuario(pUsuario, pContrasenia);
+		}
+
+		public async Task<tUsuarios> GuardarUsuario(
+			int pIDUsuario
+			, string pUsuario
+			, string pContrasenia
+			, bool pEstaActivo) {
+
+			return await iDominio.GuardarUsuario(
+				pIDUsuario
+				, pUsuario
+				, pContrasenia
+				, pEstaActivo
+			);
+		}
+
+		public async Task EliminarUsuario(int pIDUsuario) {
+			await iDominio.EliminarUsuario(pIDUsuario);
 		}
 	}
 }
