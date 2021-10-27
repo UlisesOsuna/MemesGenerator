@@ -1,5 +1,6 @@
 ﻿using System;
 using Managers.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using WebApis.Interfaces;
@@ -18,6 +19,7 @@ namespace WebApis.Controllers {
 		}
 
 		[HttpPost]
+		[Authorize]
 		[Route("GetMeme")]
 		public IActionResult GenerarMeme(MemeGenSolicitud pValue) {
 			try {

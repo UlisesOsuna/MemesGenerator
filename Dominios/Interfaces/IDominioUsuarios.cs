@@ -12,6 +12,7 @@ namespace Dominios.Interfaces {
 			int pIDUsuario
 			, string pUsuario
 			, string pContrasenia
+			, string pSalt
 			, bool pEstaActivo
 		);
 

@@ -1,14 +1,18 @@
+using System;
 using DataAccessor;
 using Dominios;
 using Dominios.Interfaces;
 using Managers;
 using Managers.Interfaces;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Tokens;
+using Modelos;
 using Repositorios;
 using Repositorios.Interfaces;
 
@@ -26,6 +30,24 @@ namespace WebApis {
 		public void ConfigureServices(IServiceCollection services) {
 			services.AddControllers();
 
+			services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+				.AddJwtBearer(options => {
+					options.TokenValidationParameters = new TokenValidationParameters {
+						ValidateIssuer = true,
+						ValidateAudience = true,
+						ValidateIssuerSigningKey = true,
+						ValidIssuer = Configuration["JwtConfig:Issuer"],
+						ValidAudience = Configuration["JwtConfig:Audience"],
+
+						IssuerSigningKey = new SymmetricSecurityKey(
+							Convert.FromBase64String(Configuration["JwtConfig:SecretKey"])
+						)
+					};
+
+				});
+
+			
+
 			//WebApis
 			services.AddScoped<IManagerUsuarios, cManagerUsuarios>(); 
 			services.AddScoped<IManagerCategorias, cManagerCategorias>();
@@ -33,6 +55,10 @@ namespace WebApis {
 			services.AddScoped<IManagerMemeGen, cManagerMemeGen>();
 
 			//Managers
+			JwtConfigModelo lJwtCfg = new JwtConfigModelo();
+			Configuration.GetSection("JwtConfig").Bind(lJwtCfg);
+			services.AddSingleton<JwtConfigModelo>(lJwtCfg);
+
 			services.AddScoped<IDominioUsuarios, cDominioUsuarios>();
 			services.AddScoped<IDominioCategorias, cDominioCategorias>();
 			services.AddScoped<IDominioImagenes, cDominioImagenes>();
@@ -58,6 +84,7 @@ namespace WebApis {
 
 			app.UseHttpsRedirection();
 			app.UseRouting();
+			app.UseAuthentication();
 			app.UseAuthorization();
 
 			app.UseEndpoints(endpoints => {

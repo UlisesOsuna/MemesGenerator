@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Managers.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using WebApis.Interfaces;
@@ -19,6 +20,7 @@ namespace WebApis.Controllers {
 		}
 
 		[HttpPost]
+		[Authorize]
 		[Route("GetAll")]
 		public IActionResult ObtenerImagenes(ImagenesSolicitud pValue) {
 			try {
@@ -36,6 +38,7 @@ namespace WebApis.Controllers {
 		}
 
 		[HttpPost]
+		[Authorize]
 		[Route("GetByID")]
 		public async Task<IActionResult> ObtenerImagenPorID(ImagenesSolicitud pValue) {
 			try {
@@ -53,6 +56,7 @@ namespace WebApis.Controllers {
 		}
 
 		[HttpPost]
+		[Authorize]
 		[Route("Guardar")]
 		public async Task<IActionResult> GuardarImagenes(ImagenesSolicitud pValue) {
 			try {
@@ -71,6 +75,7 @@ namespace WebApis.Controllers {
 		}
 
 		[HttpPost]
+		[Authorize]
 		[Route("Eliminar")]
 		public async Task<IActionResult> EliminarImagenes(ImagenesSolicitud pValue) {
 			try {

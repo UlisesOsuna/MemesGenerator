@@ -1,9 +1,10 @@
 ﻿using System.Threading.Tasks;
 using Entidades;
+using Modelos;
 
 namespace Managers.Interfaces {
 	public interface IManagerUsuarios {
-		Task<tUsuarios> LoginUsuario(
+		Task<UsuariosModelo> LoginUsuario(
 			string pUsuario
 			, string pContrasenia
 		);

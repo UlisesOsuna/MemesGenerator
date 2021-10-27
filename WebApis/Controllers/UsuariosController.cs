@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Managers.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using WebApis.Interfaces;
@@ -19,9 +20,11 @@ namespace WebApis.Controllers {
 		}
 
 		[HttpPost]
+		[AllowAnonymous]
 		[Route("Login")]
 		public async Task<IActionResult> LoginUsuario(UsuariosSolicitud pValue) {
 			try {
+
 				return Ok(await iManager.LoginUsuario(
 					pValue.Usuario
 					, pValue.Contrasenia
@@ -39,6 +42,7 @@ namespace WebApis.Controllers {
 		}
 
 		[HttpPost]
+		[Authorize]
 		[Route("Guardar")]
 		public async Task<IActionResult> GuardarUsuario(UsuariosSolicitud pValue) {
 			try {
@@ -61,6 +65,7 @@ namespace WebApis.Controllers {
 		}
 
 		[HttpPost]
+		[Authorize]
 		[Route("Eliminar")]
 		public async Task<IActionResult> EliminarUsuario(UsuariosSolicitud pValue) {
 			try {
