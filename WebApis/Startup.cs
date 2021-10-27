@@ -30,6 +30,7 @@ namespace WebApis {
 			services.AddScoped<IManagerUsuarios, cManagerUsuarios>(); 
 			services.AddScoped<IManagerCategorias, cManagerCategorias>();
 			services.AddScoped<IManagerImagenes, cManagerImagenes>();
+			services.AddScoped<IManagerMemeGen, cManagerMemeGen>();
 
 			//Managers
 			services.AddScoped<IDominioUsuarios, cDominioUsuarios>();
